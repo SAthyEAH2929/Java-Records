@@ -1,0 +1,37 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class SeriesResistanceCalculator {
+
+    public static void main(String[] args) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        double totalResistance = 0.0;
+
+        System.out.println("Welcome to the Series Resistance Calculator!");
+
+        try {
+            while (true) {
+                System.out.print("Enter the resistance value (ohms) or type 'exit' to finish: ");
+                String input = reader.readLine();
+
+               
+                if (input.equalsIgnoreCase("exit")) {
+                    break;
+                }
+
+                try {
+                    
+                    double resistance = Double.parseDouble(input);
+                    totalResistance += resistance; 
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input! Please enter a valid number or 'exit' to finish.");
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading input: " + e.getMessage());
+        }
+
+        System.out.printf("Total Resistance in the series circuit: %.2f ohms%n", totalResistance);
+    }
+}
