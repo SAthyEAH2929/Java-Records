@@ -1,0 +1,79 @@
+import java.util.Scanner;
+
+// Base class for a finite automaton
+abstract class FiniteAutomaton {
+    protected int state;
+
+    public FiniteAutomaton() {
+        this.state = initialState();
+    }
+
+    // Abstract methods to be implemented by derived classes
+    protected abstract int initialState();
+    protected abstract int nextState(int currentState, char input);
+    public abstract boolean isAccepted();
+    
+    // Method to process input string
+    public void processInput(String input) {
+        for (char c : input.toCharArray()) {
+            state = nextState(state, c);
+        }
+    }
+}
+
+// Derived class for even number of 0s
+class EvenZerosAutomaton extends FiniteAutomaton {
+    // Initial state
+    @Override
+    protected int initialState() {
+        return 0; // State q0 (even number of 0s)
+    }
+
+    // Transition function
+    
+    protected int nextState(int currentState, char input) {
+        switch (currentState) {
+            case 0: // q0: even number of 0s
+                if (input == '0') {
+                    return 1; // Transition to q1 (odd number of 0s)
+                }
+                return 0; // Stay in q0
+            case 1: // q1: odd number of 0s
+                if (input == '0') {
+                    return 0; // Transition back to q0 (even number of 0s)
+                }
+                return 1; // Stay in q1
+            default:
+                return currentState; // Invalid state (should not happen)
+        }
+    }
+
+    // Check if the current state is accepting
+    
+    public boolean isAccepted() {
+        return state == 0; // Accepting state is q0
+    }
+}
+
+public class FiniteAutomatonDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a binary string (composed of 0s and 1s): ");
+        String input = scanner.nextLine();
+
+        // Create an instance of the specific automaton
+        EvenZerosAutomaton automaton = new EvenZerosAutomaton();
+        
+        // Process the input string
+        automaton.processInput(input);
+        
+        // Check if the string is accepted
+        if (automaton.isAccepted()) {
+            System.out.println("The string is accepted (even number of 0s).");
+        } else {
+            System.out.println("The string is not accepted (odd number of 0s).");
+        }
+
+        scanner.close();
+    }
+}
