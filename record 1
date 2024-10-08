@@ -1,0 +1,35 @@
+import java.util.Scanner; 
+
+  
+
+public class WeatherStatus { 
+
+  
+
+   
+
+    public static String getWeatherStatus(int temperature) { 
+
+        if (temperature <= 0) { 
+
+            return "It's very very cold"; 
+
+        } else if (temperature > 0 && temperature <= 10) { 
+
+            return "It's cold"; 
+
+        } else if (temperature > 10 && temperature <= 20) { 
+
+            return "It's cool out"; 
+
+        } else if (temperature > 20 && temperature <= 30) { 
+
+            return "It's warm"; 
+
+        } else { 
+
+            return "It's hot"; 
+
+        } 
+
+    } 
